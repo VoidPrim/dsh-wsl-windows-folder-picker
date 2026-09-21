@@ -37,6 +37,7 @@
     "lib/backend.js",
     "cordis.patch.yml",
     "assets/settings.png",
+    "CHANGELOG.md",
     "README.md"
   ],
   "keywords": [
@@ -58,6 +59,6 @@
   "license": "MIT",
   "author": "VoidPrim (https://github.com/VoidPrim)",
   "engines": {
-    "node": ">=18"
+    "node": ">=18.17.0"
   }
 }
