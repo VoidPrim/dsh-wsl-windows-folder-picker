@@ -1,6 +1,6 @@
 {
   "name": "dsh-wsl-windows-folder-picker",
-  "version": "0.1.0-Alpha",
+  "version": "0.1.0",
   "description": "Windows folder picker for dsh on WSL",
   "type": "module",
   "main": "lib/index.js",
@@ -38,7 +38,8 @@
     "cordis.patch.yml",
     "assets/settings.png",
     "CHANGELOG.md",
-    "README.md"
+    "README.md",
+    "README_cn.md"
   ],
   "keywords": [
     "dsh-plugin",
