@@ -1,0 +1,62 @@
+{
+  "name": "dsh-wsl-windows-folder-picker",
+  "version": "0.1.0-Alpha",
+  "description": "Windows folder picker for dsh on WSL",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "engines": {
+      "dsh": ">=0.1.5-rc.2 <0.2.0"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/backend.js",
+    "cordis.patch.yml",
+    "assets/settings.png",
+    "README.md"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "dsh",
+    "wsl",
+    "windows",
+    "directory-picker",
+    "workspace"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VoidPrim/dsh-wsl-windows-folder-picker.git"
+  },
+  "homepage": "https://github.com/VoidPrim/dsh-wsl-windows-folder-picker#readme",
+  "bugs": {
+    "url": "https://github.com/VoidPrim/dsh-wsl-windows-folder-picker/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
