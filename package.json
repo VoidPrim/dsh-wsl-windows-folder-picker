@@ -56,6 +56,7 @@
     "url": "https://github.com/VoidPrim/dsh-wsl-windows-folder-picker/issues"
   },
   "license": "MIT",
+  "author": "VoidPrim (https://github.com/VoidPrim)",
   "engines": {
     "node": ">=18"
   }
