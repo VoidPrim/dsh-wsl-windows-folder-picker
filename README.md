@@ -4,7 +4,7 @@
 
 Use the Windows folder dialog when using dsh under WSL.
 
-Once installed, "Add workspace" opens the Windows folder dialog.
+
 
 ## Install
 
