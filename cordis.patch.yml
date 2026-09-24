@@ -6,61 +6,32 @@
 # chooser binary installed, it therefore always resolves `browse`, so a Windows
 # folder dialog is unreachable through it.
 #
-# The interaction it mounts is a *pair*: a Host backend serving the
-# `ctx.directoryPicker` capability, and a browser surface occupying
-# `ui-workspace`'s two directory-flow holes. This patch replaces the pair on WSL:
+# This patch does NOT disable that chooser. It stays exactly as shipped, and this
+# package's Host half refines what it serves instead — see `lib/index.js`, which
+# shadows the seam's `capability()` for as long as it is mounted.
 #
-#   - the `auto` row is disabled, and
-#   - this package's Host half serves the seam itself, alongside the shipped
-#     browse surface as the fallback occupant.
+# Leaving the chooser in place is deliberate, and it is what makes disabling this
+# plugin harmless. The chooser keeps serving its own interaction and keeps the
+# browser surface that renders the in-page add-workspace flow mounted, so
+# switching this plugin off returns to the stock picker instead of leaving the
+# two directory-flow slots empty. Those are `single` slots with no default
+# occupant: whoever owns them owns the whole add-workspace affordance, so the
+# fallback must never depend on this package being mounted.
 #
-# ## Why the browse surface stays mounted even when the Windows dialog is on
-#
-# The two directory-flow holes are `single` slots, and a `single` slot renders
-# the live entry with the LOWEST `priority`. The shipped browse surface sits at
-# the default 0; this package's own surface registers at -1 (see
-# `lib/client.js`), so it wins while it is mounted and hands the seat straight
-# back to browse the moment it is disposed. That is the entire live switch on the
-# browser side — a registration appearing or disappearing.
-#
-# Mounting a different surface *package* at runtime is not an option: a page's
-# client module graph is frozen at load, so a surface that was not in the graph
-# when the page booted can never render. Both surfaces therefore arrive as
-# ordinary composition rows, and only the election between them changes.
-#
-# The Host keeps this honest. It serves ONE capability whose `kind` is read
-# fresh on every call, and the client half flips its registration off the same
-# two facts the Host uses — the user's `enabled` preference and the `available`
-# boot fact — so the mounted surface and the served capability cannot disagree.
-#
-# Off WSL every expression below is false, the `auto` row stays exactly as
-# shipped, and neither of this package's rows is mounted — so installing this
-# can never change the picker on a native Linux, macOS, or Windows host.
-
-# Replace the adaptive chooser on WSL. Elsewhere this stays enabled as shipped.
-#
-# Three WSL markers are tested because no single one is always exported: a dsh
-# launched from a service or a minimal environment may carry only some of them.
-# Any WSL marker under a Linux platform is conclusive, since plain Linux does
-# not set them.
-- id: directory-picker
-  disabled: !!js process.platform === 'linux' && Boolean(process.env.WSL_DISTRO_NAME || process.env.WSL_INTEROP || process.env.WSLENV)
+# Off WSL the expression below is false and this package's row is not mounted —
+# so installing this can never change the picker on a native Linux, macOS, or
+# Windows host.
 
 - insert:
-    # dsh's own in-page directory browser, kept as the fallback occupant of the
-    # two directory-flow holes. It is mounted unconditionally on WSL because the
-    # `auto` row above would otherwise have mounted it: with the `auto` row
-    # disabled, this row is what makes "switch OFF" behave exactly like a stock
-    # dsh host. Its Host face is a no-op — the listing primitives are served by
-    # this package's own dispatching capability.
-    - id: wsl-windows-folder-picker-browse-surface
-      name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
-      disabled: !!js process.platform !== 'linux' || !(process.env.WSL_DISTRO_NAME || process.env.WSL_INTEROP || process.env.WSLENV)
-
-    # The Host half: serves `ctx.directoryPicker`, registers this plugin's own
-    # Settings page, and publishes the `available` fact the browser half needs.
-    # Disabled off WSL so `auto` above keeps serving the seam and no duplicate
-    # `directoryPicker` registration occurs.
+    # The Host half: refines `ctx.directoryPicker` into one dispatching
+    # capability — the Windows folder dialog, or the stock interaction when
+    # interop cannot run it. Disabled off WSL so the shipped chooser is left
+    # untouched elsewhere.
+    #
+    # Three WSL markers are tested because no single one is always exported: a
+    # dsh launched from a service or a minimal environment may carry only some
+    # of them. Any WSL marker under a Linux platform is conclusive, since plain
+    # Linux does not set them.
     - id: wsl-windows-folder-picker
       name: 'dsh-wsl-windows-folder-picker'
       disabled: !!js process.platform !== 'linux' || !(process.env.WSL_DISTRO_NAME || process.env.WSL_INTEROP || process.env.WSLENV)

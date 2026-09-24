@@ -4,11 +4,11 @@
 
 Use the Windows folder dialog when using dsh under WSL.
 
-Once installed, "Add workspace" opens the Windows folder dialog, and it can be toggled anytime in Settings.
+Once installed, "Add workspace" opens the Windows folder dialog.
 
 ## Install
 
-Requires dsh `>=0.1.5-rc.2`.
+Requires dsh `>=0.1.7-rc.1`.
 
 ```bash
 dsh plugin --profile web add github:VoidPrim/dsh-wsl-windows-folder-picker
@@ -26,17 +26,9 @@ Uninstall:
 dsh plugin --profile web remove dsh-wsl-windows-folder-picker
 ```
 
-## Settings
+Upgrading dsh rebuilds the profile composition, which drops this plugin. Install it again afterwards.
 
-Settings gains a "Windows folder picker" page:
-
-![Settings page](assets/settings.png)
-
-| Option | Default | Description |
-| --- | --- | --- |
-| Use the Windows folder picker | On | Turn off to return to the default |
-| Remember last location | On | Start from the last chosen folder next time |
-| Dialog timeout | 5 minutes | Close the dialog automatically on timeout, or set to no limit |
+Installing a different plugin can also reset the profile's bundle list and drop this one. If the picker stops working, check that the plugin is listed under `dsh.profile.bundles` in the profile's `package.json`, not just in `dependencies` — an entry that is a dependency but not a bundle is never composed.
 
 ## License
 

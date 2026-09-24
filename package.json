@@ -1,6 +1,6 @@
 {
   "name": "dsh-wsl-windows-folder-picker",
-  "version": "0.1.0",
+  "version": "0.1.7-rc.1",
   "description": "Windows folder picker for dsh on WSL",
   "type": "module",
   "main": "lib/index.js",
@@ -16,7 +16,7 @@
   },
   "dsh": {
     "engines": {
-      "dsh": ">=0.1.5-rc.2 <0.2.0"
+      "dsh": ">=0.1.7-rc.1"
     },
     "bundle": {
       "patch": "./cordis.patch.yml"
@@ -25,7 +25,6 @@
       "inject": [
         "@deepseek-ai/dsh-client-locale",
         "@deepseek-ai/dsh-client-ui-renderer",
-        "@deepseek-ai/dsh-client-ui-settings",
         "@deepseek-ai/dsh-client-ui-workspace"
       ],
       "platform": "web"
@@ -36,7 +35,6 @@
     "lib/client.js",
     "lib/backend.js",
     "cordis.patch.yml",
-    "assets/settings.png",
     "CHANGELOG.md",
     "README.md",
     "README_cn.md"
