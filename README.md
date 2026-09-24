@@ -26,10 +26,6 @@ Uninstall:
 dsh plugin --profile web remove dsh-wsl-windows-folder-picker
 ```
 
-Upgrading dsh rebuilds the profile composition, which drops this plugin. Install it again afterwards.
-
-Installing a different plugin can also reset the profile's bundle list and drop this one. If the picker stops working, check that the plugin is listed under `dsh.profile.bundles` in the profile's `package.json`, not just in `dependencies` — an entry that is a dependency but not a bundle is never composed.
-
 ## License
 
 MIT

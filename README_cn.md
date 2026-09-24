@@ -26,10 +26,6 @@ dsh web
 dsh plugin --profile web remove dsh-wsl-windows-folder-picker
 ```
 
-升级 dsh 会重建 profile 组合，插件会被移除，升级后重新安装一次即可。
-
-安装其他插件同样可能重置 profile 的 bundle 列表，把本插件挤掉。若发现对话框不再弹出，检查 profile 的 `package.json` 里本插件是否列在 `dsh.profile.bundles` 中——只出现在 `dependencies` 而不在 `bundles` 里，条目不会被组合。
-
 ## 许可
 
 MIT
